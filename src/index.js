@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { Provider } from "react-redux";
+import sockets from './sockets';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  	<React.StrictMode>
+	  	<Provider store={sockets}>
+    		<App />
+		</Provider>
+ 	</React.StrictMode>,
   document.getElementById('root')
 );
 

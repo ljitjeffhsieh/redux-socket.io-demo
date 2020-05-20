@@ -1,7 +1,6 @@
 import React, { useState, useEffect, } from 'react';
 import { Card, Input, Button, } from 'antd';
 import { updateMessageActions, } from './controller'
-import { Provider } from "react-redux";
 import { connect } from "react-redux";
 import sockets from './sockets';
 import 'antd/dist/antd.css';
@@ -66,6 +65,4 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-const App = connect(null, mapDispatchToProps)(Home)
-
-export default () => (<Provider store={sockets}><App /></Provider>)
+export default connect(null, mapDispatchToProps)(Home)
