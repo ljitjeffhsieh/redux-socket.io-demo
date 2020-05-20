@@ -1,6 +1,8 @@
 import React, { useState, useEffect, } from 'react';
-import { Card, Input, Button, Tabs, } from 'antd';
+import { Card, Input, Button, } from 'antd';
 import { updateMessageActions, } from './controller'
+import { Provider } from "react-redux";
+import { connect } from "react-redux";
 import sockets from './sockets';
 import 'antd/dist/antd.css';
 import './App.css';
@@ -11,7 +13,11 @@ const {
 	updateGlobalMessageAction,
 } = updateMessageActions;
 
-function Home() {
+function Home({
+	updateLocalMessageAction,
+	updateGlobalMessageAction,
+	updateBroadCastMessageAction,
+}) {
 	const [message, setMessage] = useState('');
 	const [messages, setMessages] = useState({})
 	useEffect(() => {
@@ -43,13 +49,23 @@ function Home() {
 				</Card>
 				<Input onChange={e => setMessage(e.target.value)} value={message} placeholder="please input"/>
 				<div className="buttons">
-					<Button onClick={_handleClickMessagesButtonLocal}> Send Local</Button>
-					<Button onClick={_handleClickMessagesButtonGlobal}> Send Global</Button>
-					<Button onClick={_handleClickMessagesButtonBroadcast}> Send Broadcast</Button>
+					<Button onClick={_handleClickMessagesButtonLocal}> Send Local </Button>
+					<Button onClick={_handleClickMessagesButtonGlobal}> Send Global </Button>
+					<Button onClick={_handleClickMessagesButtonBroadcast}> Send Broadcast </Button>
 				</div>
 			</header>
 		</div>
 	);
 }
 
-export default Home;
+function mapDispatchToProps(dispatch) {
+	return {
+		updateLocalMessageAction: (message) => dispatch(updateLocalMessageAction(message)),
+		updateBroadCastMessageAction: (message) => dispatch(updateBroadCastMessageAction(message)),
+		updateGlobalMessageAction: (message) => dispatch(updateGlobalMessageAction(message)),
+	};
+}
+
+const App = connect(null, mapDispatchToProps)(Home)
+
+export default () => (<Provider store={sockets}><App /></Provider>)

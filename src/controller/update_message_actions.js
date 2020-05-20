@@ -8,20 +8,20 @@ const {
 } = actionTypes;
 
 export function updateLocalMessageAction(message) {
-	return dispatch({
+	return {
 		type: `server/${LOCAL_MESSAGE}`,
 		data: message
-	});
+	};
 }
 export function updateGlobalMessageAction(message) {
-	return dispatch({
+	return {
 		type: `server/${GLOBAL_MESSAGE}`,
 		data: message
-	});
+	};
 }
 export function updateBroadCastMessageAction(message) {
-	return dispatch({
+	return {
 		type: `server/${BROADCAST_MESSAGE}`,
 		data: message
-	});
+	};
 }
